@@ -1,0 +1,86 @@
+<nav style="box-shadow: 0 0.45rem 0.25rem rgba(0, 0, 0, 0.075) !important;"
+    class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
+    <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Klinik</h1>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a  class="log nav-link active" id="log"><i class="fa fa-home"></i> Home</a>
+            <a class="log nav-link" id="log" (click)="navigate()"><i class="fa fa-comment-medical"></i> Appointments</a>
+            <a class="log nav-link" id="log"><i class="fa fa-user-md"></i> My Schedule</a>
+            <a class="log nav-link" id="log"><i class="fa fa-user-plus"></i> Edit profile</a>
+            <a class="log nav-link" id="log"><i class="fa fa-user-plus"></i> approval status</a>
+            <a class="log nav-link" id="log" (click)="logout()"><i class="fa fa-user-plus"></i> Logout</a>
+        </div>
+    </div>
+</nav>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3">Doctor dashboard</h1>
+            <h2>Welcome {{userdata.user.firstname}} {{userdata.user.lastname}}</h2>
+        </div>
+        <div class="row g-4" style="justify-content: center;">
+            <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item bg-light rounded h-100 p-5" style="display: flex;">
+                    <div style="padding-right: 20%;">
+                        <h3 class="mb-3">Total Patients</h3>
+                            <h5 class="mb-3">count patients</h5>
+                        </div>
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                            style="width: 65px; height: 65px;">
+                            <i class="fa fa-user text-primary fs-4"></i>
+                        </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item bg-light rounded h-100 p-5" style="display: flex;">
+                    <div style="padding-right: 20%;">
+                        <h3 class="mb-3">Total Doctors</h3>
+                    <h5 class="mb-3">count doctors</h5>
+                </div>
+                    <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                        style="width: 65px; height: 65px;">
+                        <i class="fa fa-user-md text-primary fs-4"></i>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item bg-light rounded h-100 p-5" style="display: flex;">
+                    <div style="padding-right: 20%;">
+                        <h3 class="mb-3">Total slots</h3>
+                    <h5 class="mb-3">count slots</h5>
+                </div>
+                    <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                        style="width: 65px; height: 65px;">
+                        <i class="fa fa-calendar text-primary fs-4" style="font-size:24px"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item bg-light rounded h-100 p-5" style="display: flex;">
+                    <div style="padding-right: 20%;">
+                        <h3 class="mb-3">Prescription</h3>
+                    <h5 class="mb-3">count Prescription</h5>
+                </div>
+                    <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                        style="width: 65px; height: 65px;">
+                        <i class="fa fa-comment-medical text-primary fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer" class="bg-light text-center">
+        <div class="text-center p-3" style="background-color: #08072e; font-weight: bolder; color: white;">
+            ©Edoctor-Team2
+            <b style="color: white; " class="text-light">All Right Reserved</b>
+            <br>
+        </div>
+    </div>
+</footer>
