@@ -1,0 +1,111 @@
+<app-header></app-header>
+<div class="container" id="slotform">
+    <h2 class="textual"><i class="fa fa-user-md"></i><b> Add Your Available Slots </b></h2>
+    <small style="color:rgb(179, 11, 11); font-weight: bold; margin-left: 15%;">Based on your slot availability, patients can able to book appointments</small>
+    <form [formGroup]="form" (ngSubmit)="addSlot()">
+        
+        <div class="form-group">
+            <label for="doctorname"> Name : <b class="text-danger">*</b></label>
+            <input type="text" class="form-control" placeholder="enter your name" name="doctorname"  [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" formControlName="username">
+            @if (submitted && f['username'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['username'].errors['required']) {
+                  <div>Please enter your username</div>
+                  }
+                </div>
+                }
+        </div>
+        <small style="color: gray; font-size: 10px;">Please enter full name with initial</small>
+
+        <div class="form-group">
+            <label for="email"> Email : <b class="text-danger">*</b></label>
+            <input type="email" class="form-control" placeholder="enter email address" name="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+            @if (submitted && f['email'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['email'].errors['required']) {
+                  <div>Please enter email</div>
+                  }
+                </div>
+                }
+        </div>
+
+        <div class="form-group">
+            <label for="specialization">Specialization : <b class="text-danger">*</b></label>
+            <input type="text" class="form-control" placeholder="enter specialization" name="specialization" formControlName="specialization" [ngClass]="{ 'is-invalid': submitted && f['specialization'].errors }">
+            @if (submitted && f['specialization'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['specialization'].errors['required']) {
+                  <div> Please enter specialization</div>
+                  }
+                </div>
+                }
+        </div>
+        <small style="color: gray; font-size: 10px;">Please mention your specialization (eg: Cardiologist, Gynacologist)</small>
+
+
+        <div class="form-group">
+            <label for="gender">AM Slot Timings : <b class="text-danger">*</b></label>
+            <select class="form-control" id="sel1" name="amslot" formControlName="amslot" [ngClass]="{ 'is-invalid': submitted && f['amslot'].errors }">
+                <option value="" disabled selected>Select slot</option>
+                <option>9.00 AM - 11.00 AM</option>
+                <option>9.30 AM - 11.30 AM</option>
+                <option>10.00 AM - 12.00 AM</option>
+            </select>
+            @if (submitted && f['amslot'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['amslot'].errors['required']) {
+                  <div>Please select slot</div>
+                  }
+                </div>
+                }
+        </div>
+
+        <div class="form-group">
+            <label for="gender">PM Slot Timings : <b class="text-danger">*</b></label>
+            <select class="form-control" id="sel1" name="pmslot" formControlName="pmslot" [ngClass]="{ 'is-invalid': submitted && f['pmslot'].errors }">
+                <option value="" disabled selected>Select slot</option>
+                <option>4.00 PM - 6.00 PM</option>
+                <option>4.30 PM - 6.30 PM</option>
+                <option>5.00 PM - 7.00 PM</option>
+            </select>
+            @if (submitted && f['pmslot'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['pmslot'].errors['required']) {
+                  <div>Please select slot</div>
+                  }
+                </div>
+                }
+        </div>
+
+        <div class="form-group">
+            <label for="date">Available Date : <b class="text-danger">*</b></label>
+            <input type="date" class="form-control" placeholder="enter available date" name="date" formControlName="date" [ngClass]="{ 'is-invalid': submitted && f['date'].errors }">
+            @if (submitted && f['date'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['date'].errors['required']) {
+                  <div>Please select date</div>
+                  }
+                </div>
+                }
+        </div>
+
+        <div class="form-group">
+            <label for="patienttype">Patient Type : <b class="text-danger">*</b></label>
+            <select class="form-control" id="sel1" name="date" formControlName="patienttype" [ngClass]="{ 'is-invalid': submitted && f['patienttype'].errors }">
+                <option value="" disabled selected>Select Type</option>
+                <option>General</option>
+                <option>Emergency</option>
+            </select>
+            @if (submitted && f['patienttype'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['patienttype'].errors['required']) {
+                  <div>Please select type</div>
+                  }
+                </div>
+                }
+        </div>
+
+      <button style="margin-top: 15px;" type="submit" class="btn registerbtn"><i class="fa fa-plus"></i>&nbsp; Add Your Slot</button>
+    </form>
+  </div>
+<app-footer></app-footer>

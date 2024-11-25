@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   AbstractControl,
@@ -10,11 +9,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Validation from '../utils/validation';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, RouterOutlet,CommonModule,ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -25,9 +25,10 @@ export class RegisterComponent {
     password: new FormControl(''),
     contact: new FormControl(''),
     role: new FormControl(''),
+    gender: new FormControl(''),
   });
   submitted = false;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private authservice:AuthService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -44,14 +45,14 @@ export class RegisterComponent {
           ],
         ],
         contact:['',Validators.required],
-        role:['',Validators.required]
+        role:['',Validators.required],
+        gender:['',Validators.required],
       }
     );
   }
 
   get f(): { [key: string]: AbstractControl } {
-    console.log(this.form.controls);
-    //localStorage.setItem("Error",this.form.controls);
+    // console.log(this.form.controls);
     return this.form.controls;
   }
 
@@ -62,5 +63,13 @@ export class RegisterComponent {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
+    const { username,email,password,contact,role,gender } = this.form.value;
+    this.authservice.userregister(username,email,password,contact,role,gender).subscribe(isAuthnticated=>{
+      if(isAuthnticated) {
+      }
+      else{
+        alert("User already exist");
+      }
+    })
   }
 }

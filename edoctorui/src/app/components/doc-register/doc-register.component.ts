@@ -9,10 +9,11 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-doctor-registration',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './doc-register.component.html',
   styleUrl: './doc-register.component.css'
 })
@@ -24,9 +25,10 @@ export class DoctorRegistrationComponent {
     specialization:new FormControl(''),
     experience:new FormControl(''),
     place: new FormControl(''),
+    gender: new FormControl(''),
   });
   submitted = false;
-  constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router) { }
+  constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router,private authservice:AuthService) { }
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
@@ -43,6 +45,7 @@ export class DoctorRegistrationComponent {
         specialization:['',Validators.required],
         experience:['',Validators.required],
         place:['',Validators.required],
+        gender:['',Validators.required],
       }
       
     );
@@ -57,5 +60,13 @@ export class DoctorRegistrationComponent {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
+    const { fulname,email,password,specialization,experience,place} = this.form.value;
+    this.authservice.docregister(fulname,email,password,specialization,experience,place).subscribe(isAuthnticated=>{
+      if(isAuthnticated) {
+      }
+      else{
+        alert("User already exist");
+      }
+    })
   }
 }
