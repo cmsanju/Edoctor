@@ -24,6 +24,9 @@ public class DoctorService {
         return doctorRepository.findById(id).get();
 
     }
+    public Doctor fetchUserByUserNameAndPassword(String email, String password){
+        return doctorRepository.findByEmailAndPassword(email, password);
+    }
 
     public void save(Doctor doctor){
         doctorRepository.save(doctor);

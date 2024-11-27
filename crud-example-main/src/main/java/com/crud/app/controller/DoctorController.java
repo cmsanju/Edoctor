@@ -35,6 +35,19 @@ public class DoctorController {
         }
 
     }
+    @PostMapping("/doctorlogin")
+    public  Doctor loginUser(@RequestBody Doctor user) throws Exception {
+        String tempEmail =user.getEmail();
+        String tempPass = user.getPassword();
+        Doctor userObj = null;
+        if(tempEmail !=null && tempPass != null){
+            userObj = doctorService.fetchUserByUserNameAndPassword(tempEmail,tempPass);
+        }
+        if (userObj==null){
+            throw new Exception("bad credentials");
+        }
+        return userObj;
+    }
 
     @PostMapping("/registerdoctor")
     public ResponseEntity<Doctor> add(@RequestBody Doctor doctor ){

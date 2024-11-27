@@ -18,6 +18,10 @@ export class AuthService {
     var inputpayload={userName:username,password:password};
     return this.http.post(this.usersUrl+"login",inputpayload,{observe:'response'});
   }
+  doclogin(username: string, password: string): Observable<HttpResponse<any>> {
+    var inputpayload={email:username,password:password};
+    return this.http.post(this.usersUrl+"doctorlogin",inputpayload,{observe:'response'});
+  }
   userregister(userfullname:string,username:string,email:string,password:string,contact:string,gender:string):Observable<HttpResponse<any>> {
     var inputpayload={userName:username,role:"user",password:password,email:email,contact:contact,gender:gender,fullName:userfullname,};
     return this.http.post(this.usersUrl+"registeruser",inputpayload,{observe:'response'});
