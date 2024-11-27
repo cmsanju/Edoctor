@@ -23,6 +23,16 @@ export class AuthService {
     return this.http.post(this.usersUrl+"registeruser",inputpayload,{observe:'response'});
     
   }
+  userUpdate(userfullname:string,username:string,email:string,contact:string,gender:string,userId:string,password:string):Observable<HttpResponse<any>> {
+    var inputpayload={userName:username,email:email,contact:contact,gender:gender,fullName:userfullname,userId:userId,password:password,role:"user"};
+    return this.http.put(this.usersUrl+"user/"+userId,inputpayload,{observe:'response'});
+    
+  }
+  adminUpdate(userfullname:string,username:string,email:string,contact:string,gender:string,userId:string,password:string):Observable<HttpResponse<any>> {
+    var inputpayload={userName:username,email:email,contact:contact,gender:gender,fullName:userfullname,userId:userId,password:password,role:"admin"};
+    return this.http.put(this.usersUrl+"user/"+userId,inputpayload,{observe:'response'});
+    
+  }
   logout() {
     const confirmation = window.confirm('Are you sure you want to logout?');
     if (confirmation) {
@@ -46,6 +56,12 @@ export class AuthService {
   }
   getDoctorInfo(id:string):Observable<HttpResponse<any>>{
     return this.http.get(this.usersUrl+"doctor/"+id,{observe:'response'});
+  }
+  getUserdata(id:string):Observable<HttpResponse<any>>{
+    return this.http.get(this.usersUrl+"user/"+id,{observe:'response'});
+  }
+  deleteUser(id:string):Observable<HttpResponse<any>>{
+    return this.http.delete(this.usersUrl+"user/"+id,{observe:'response'});
   }
   doctorslist(){
     var doctorList:any=[];

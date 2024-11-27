@@ -22,4 +22,28 @@ export class PatientslistComponent {
     
     },(error)=>{console.log(error);})
   };
+  deleteUser(id:any){
+    let userConform= confirm("Do you want to delete this user");
+    if(userConform){
+      this.authService.deleteUser(id).subscribe(data =>{
+        console.log(data);
+        this.getUserdata();
+        alert("User deleted successfully");
+      },(error:any)=>{
+        console.log(error);
+        alert("Failed to delete user");
+      })
+    }
+    else{
+      console.log("User clicked cancel");
+    };
+     
+  };
+  getUserdata(){
+    this.authService.getUserList().subscribe(data =>{
+      console.log(data);
+       this.userList=data.body;
+    
+    },(error)=>{console.log(error);})
+  };
 }

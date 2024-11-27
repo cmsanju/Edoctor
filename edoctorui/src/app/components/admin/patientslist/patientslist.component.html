@@ -18,13 +18,13 @@
            <tbody>
              <tr *ngFor="let user of userList; let i = index">
               <ng-container *ngIf="user.role == 'user' ">
-               <th scope="row">{{i+1}}</th>
+               <th scope="row">{{user.userId}}</th>
                <td>{{user.fullName}}</td>
                <td>{{user.userName}}</td>
                <td>{{user.gender}}</td>
                <td>{{user.contact}}</td>
                <td>{{user.email}}</td>
-               <td><button class="btn btn-danger btn-sm">Remove</button></td>
+               <td><button class="btn btn-danger btn-sm" (click)="deleteUser(user.userId)">Delete</button></td>
               </ng-container>
              </tr>
            </tbody>

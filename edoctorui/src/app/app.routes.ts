@@ -17,6 +17,7 @@ import { PatientslistComponent } from './components/admin/patientslist/patientsl
 import { TotaldoctorsComponent } from './components/admin/totaldoctors/totaldoctors.component';
 import { MybookingsComponent } from './components/user/mybookings/mybookings.component';
 import { TotalbookingsComponent } from './components/admin/totalbookings/totalbookings.component';
+import { DocLoginComponent } from './components/Doctor/doc-login/doc-login.component';
 export const routes: Routes = [
   { path: 'homepage', component: HomepageComponent},
   { path: 'login', component: LoginComponent },
@@ -36,5 +37,6 @@ export const routes: Routes = [
   { path: 'totaldoctors', component: TotaldoctorsComponent},
   {path:'mybookings/:id',component: MybookingsComponent},
   {path:'totalbookings',component: TotalbookingsComponent},
+  {path:'doctor_login',component: DocLoginComponent},
   { path: '', pathMatch: 'full', redirectTo: 'homepage' }, 
 ];

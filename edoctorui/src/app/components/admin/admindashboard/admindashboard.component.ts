@@ -27,7 +27,11 @@ export class AdmindashboardComponent {
 
     this.authService.getUserList().subscribe(data =>{
       console.log(data);
-       this.userList=data.body;
+      data.body.forEach((e:any)=>{
+        if(e.role == 'user'){
+          this.userList.push(e);
+        };
+      });
     
     },(error)=>{console.log(error);})
     this.authService.getBookingList().subscribe(data =>{

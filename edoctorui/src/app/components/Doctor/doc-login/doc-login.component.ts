@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-// import { NgModule } from '@angular/core';
+import { TabsComponent } from "../../mainpage/tabs/tabs.component";
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TabsComponent } from '../tabs/tabs.component';
 import {
   AbstractControl,
   FormBuilder,
@@ -15,27 +14,27 @@ import Validation from '../../utils/validation';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 @Component({
-  selector: 'app-login',
+  selector: 'app-doc-login',
   standalone: true,
   imports: [RouterLink,CommonModule,ReactiveFormsModule,TabsComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './doc-login.component.html',
+  styleUrl: './doc-login.component.css'
 })
-export class LoginComponent {
+export class DocLoginComponent {
   public userdata:any=[];
   public data='';
-  form: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+  form1: FormGroup = new FormGroup({
+    username1: new FormControl(''),
+    password2: new FormControl(''),
   });
   submitted = false;
   constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router,private authservice:AuthService) {}
   ngOnInit(): void {
     // console.log(this.data);
-    this.form = this.formBuilder.group(
+    this.form1 = this.formBuilder.group(
       {
-        username: ['', Validators.required],
-        password: [
+        username1: ['', Validators.required],
+        password2: [
           '',
           [
             Validators.required,
@@ -51,19 +50,19 @@ export class LoginComponent {
   }
   get f(): { [key: string]: AbstractControl } {
     // console.log(this.form.controls);
-    return this.form.controls;
+    return this.form1.controls;
   }
 
   onSubmit(){
     this.submitted = true;
     
-    if (this.form.invalid) {
+    if (this.form1.invalid) {
       return;
     }
 
     // console.log(JSON.stringify(this.form.value, null, 2));
-    const { username, password } = this.form.value;
-    this.authservice.login(username, password).subscribe(data =>{
+    const { username1, password2 } = this.form1.value;
+    this.authservice.login(username1, password2).subscribe(data =>{
      console.log(data);
      console.log("response :",data.body);
      console.log("status :",data.status);

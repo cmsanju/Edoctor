@@ -6,12 +6,15 @@
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <!--<a [routerLink]="['/register']">Catalog</a>-->
+        
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
           </div>
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0" >Login</p>
           </div>
+          <app-tabs></app-tabs>
           <div data-mdb-input-init class="form-outline mb-4">
               <label class="form-label" for="Username">User Name :</label>
             <input type="text" id="user" class="form-control form-control-lg"

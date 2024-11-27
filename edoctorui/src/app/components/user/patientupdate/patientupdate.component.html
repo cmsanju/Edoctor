@@ -4,7 +4,7 @@
     <h3 class="text-center"><u>Update Profile</u></h3>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label>Patient Id :<b class="text-danger">*</b></label>
+        <label>Username :<b class="text-danger">*</b></label>
         <input type="text" class="form-control" id="patientId"
          name="patientId" [ngClass]="{ 'is-invalid': submitted && f['patientId'].errors }" formControlName="patientId">
          @if (submitted && f['patientId'].errors) {
@@ -16,7 +16,7 @@
           }
       </div>
       <div class="form-group">
-        <label>Patient Name :<b class="text-danger">*</b></label>
+        <label>Name :<b class="text-danger">*</b></label>
         <input type="text" class="form-control" id="patientName"
           name="patientName" [ngClass]="{ 'is-invalid': submitted && f['patientName'].errors }" formControlName="patientName">
           @if (submitted && f['patientName'].errors) {
@@ -26,6 +26,22 @@
               }
             </div>
             }
+      </div>
+      <div class="form-group">
+        <label for="password">Password :<b class="text-danger">*</b></label>
+        <input type="password" id="password" class="form-control" placeholder="Enter password" formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+        @if (submitted && f['password'].errors) {
+        <div class="invalid-feedback">
+          @if (f['password'].errors['required']) {
+          <div>Password is required</div>
+          } @if (f['password'].errors['minlength']) {
+          <div>Password must be at least 6 characters</div>
+          } @if (f['password'].errors['maxlength']) {
+          <div>Username must not exceed 40 characters</div>
+          }
+        </div>
+        }
       </div>
       <div class="form-group">
         <label>Mobile No :<b class="text-danger">*</b></label>
