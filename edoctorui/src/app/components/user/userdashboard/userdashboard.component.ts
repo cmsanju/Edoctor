@@ -19,4 +19,7 @@ export class UserdashboardComponent {
   doclist(){
     this._router.navigate(['/doctorslist']);
   }
+  myappointment(userid:any){
+    this._router.navigate(['/mybookings',userid]);
+  }
 }

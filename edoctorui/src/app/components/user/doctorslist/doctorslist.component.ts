@@ -4,6 +4,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../footer/footer.component';
+
 @Component({
   selector: 'app-doctorslist',
   standalone: true,
@@ -20,8 +21,13 @@ export class DoctorslistComponent {
     this.userdata=JSON.parse(this.userdata) 
     
     this.authService.getDoctorsList().subscribe(data =>{
-      // console.log(data);
-      this.doctorList=data;
+      console.log(data);
+       this.doctorList=data.body;
+    
     })
   };
+  appointment(id:any){
+    //this. imagesModal = true;
+    this._router.navigate(['/create-appointment', id]);
+  }
 }

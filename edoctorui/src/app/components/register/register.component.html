@@ -3,9 +3,21 @@
     <p class="text-center fw-bold mx-3 mb-0" style="justify-content: center;">Registration form</p>
   </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
+    
     <div class="form-group">
-      <label for="doctorname"> Name : <b class="text-danger">*</b></label>
+      <label for="doctorname"> Full Name : <b class="text-danger">*</b></label>
+      <input type="text" class="form-control" placeholder="enter your name" name="username"
+        [ngClass]="{ 'is-invalid': submitted && f['userfullname'].errors }" formControlName="userfullname">
+      @if (submitted && f['userfullname'].errors) {
+      <div class="invalid-feedback">
+        @if (f['userfullname'].errors['required']) {
+        <div>Please enter your full name</div>
+        }
+      </div>
+      }
+    </div>
+    <div class="form-group">
+      <label for="doctorname"> Username : <b class="text-danger">*</b></label>
       <input type="text" class="form-control" placeholder="enter your name" name="doctorname"
         [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" formControlName="username">
       @if (submitted && f['username'].errors) {
@@ -16,8 +28,7 @@
       </div>
       }
     </div>
-    <small style="color: gray; font-size: 10px;">Please enter full name with initial</small>
-
+    
     <div class="form-group">
       <label for="email"> Email : <b class="text-danger">*</b></label>
       <input type="email" class="form-control" placeholder="enter email address" name="email" formControlName="email"
@@ -56,22 +67,6 @@
         @if (f['contact'].errors['required']) {
         <div>Contact is required</div>
         }
-      </div>
-      }
-    </div>
-    <div>
-      <label>Role :<b class="text-danger">*</b></label>
-      <select class="form-select" id="role" formControlName="role"
-        [ngClass]="{ 'is-invalid': submitted && f['role'].errors }">
-        <option value="" disabled selected>Select role</option>
-        <option value="patient">user</option>
-      </select>
-      @if (submitted && f['role'].errors) {
-      <div class="invalid-feedback">
-        @if (f['role'].errors['required']) {
-        <div>role is required</div>
-        }
-
       </div>
       }
     </div>

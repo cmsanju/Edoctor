@@ -26,6 +26,18 @@
               }
             </div>
             <div class="form-group">
+              <label for="email"><b class="text-danger">*</b>Username:</label>
+              <input type="text" class="form-control" id="username" name="username"
+                [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" formControlName="username">
+              @if (submitted && f['username'].errors) {
+              <div class="invalid-feedback">
+                @if (f['username'].errors['required']) {
+                <div>Username is required</div>
+                }
+              </div>
+              }
+            </div>
+            <div class="form-group">
               <label for="email"><b class="text-danger">*</b>Email:</label>
               <input type="email" class="form-control" id="email" name="email"
                 [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" formControlName="email">

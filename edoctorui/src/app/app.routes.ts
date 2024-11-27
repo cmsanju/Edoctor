@@ -13,7 +13,10 @@ import { DoctorupdateComponent } from './components/Doctor/doctorupdate/doctorup
 import { PatientupdateComponent } from './components/user/patientupdate/patientupdate.component';
 import { AdminupdateComponent } from './components/admin/adminupdate/adminupdate.component';
 import { DoctorslistComponent } from './components/user/doctorslist/doctorslist.component';
-
+import { PatientslistComponent } from './components/admin/patientslist/patientslist.component';
+import { TotaldoctorsComponent } from './components/admin/totaldoctors/totaldoctors.component';
+import { MybookingsComponent } from './components/user/mybookings/mybookings.component';
+import { TotalbookingsComponent } from './components/admin/totalbookings/totalbookings.component';
 export const routes: Routes = [
   { path: 'homepage', component: HomepageComponent},
   { path: 'login', component: LoginComponent },
@@ -22,12 +25,16 @@ export const routes: Routes = [
   { path:'doctor', component: DoctordashboardComponent},
   { path:'admindashboard', component: AdmindashboardComponent},
   { path: 'appointmentlist', component: AppointmentlistComponent},
-  { path: 'create-appointment', component: CreateAppointmentComponent},
+  { path: 'create-appointment/:id', component: CreateAppointmentComponent},
   { path: 'userdashboard', component: UserdashboardComponent},
   { path:'schedule', component: ScheduleComponent},
   { path: 'doctorupdate', component: DoctorupdateComponent},
   { path: 'patientupdate', component: PatientupdateComponent},
   { path: 'adminupdate', component: AdminupdateComponent},
   { path: 'doctorslist', component: DoctorslistComponent},
+  { path: 'patientslist', component: PatientslistComponent},
+  { path: 'totaldoctors', component: TotaldoctorsComponent},
+  {path:'mybookings/:id',component: MybookingsComponent},
+  {path:'totalbookings',component: TotalbookingsComponent},
   { path: '', pathMatch: 'full', redirectTo: 'homepage' }, 
 ];

@@ -21,28 +21,40 @@ import { AuthService } from '../../../../services/auth.service';
 })
 export class CreateAppointmentComponent {
   form: FormGroup = new FormGroup({
-    fullname: new FormControl(''),
+    
     age: new FormControl(''),
-    gender : new FormControl(''),
     Problem: new FormControl(''),
-    case: new FormControl(''),
     Date: new FormControl(''),
     Time: new FormControl(''),
-    doctor : new FormControl(''),
+    
   });
   submitted = false;
-  constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router,private authservice: AuthService) { }
+  doctorID:any;
+  doctorOnfo:any=[];
+  userInFo:any=[];
+  constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router,private authservice: AuthService) {
+    this.userInFo=localStorage.getItem('session');
+    this.userInFo=JSON.parse(this.userInFo);
+    if(this.activatedRoute.snapshot.paramMap.get('id')){
+      this.doctorID=this.activatedRoute.snapshot.paramMap.get('id');
+      this.authservice.getDoctorInfo(this.doctorID).subscribe(data=>{
+        console.log("response :",data.body);
+        console.log("status code:",data.status);
+        this.doctorOnfo=data.body;
+      }, (error)=>{
+        console.log(error);
+        alert("Doctor Already exist ");
+      })
+    }
+   }
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        fullname: ['', Validators.required],
         age:['',Validators.required],
-        gender:['',Validators.required],
         Problem: ['',Validators.required],
-        case:['',Validators.required],
         Date:['',Validators.required],
-        Time: ['', Validators.required],
-        doctor:['',Validators.required]
+        Time: ['', Validators.required]
+        
       }
       
     );
@@ -57,13 +69,20 @@ export class CreateAppointmentComponent {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
-    const { username,age,gender,Problem,Date,Time,doctor} = this.form.value;
-    this.authservice.bookSlots(username,age,gender,Problem,Date,Time,doctor ).subscribe(isAuthnticated=>{
-      if(isAuthnticated) {
+    const {Problem,Date} = this.form.value;
+    this.authservice.bookSlots(Date,"Booked",Problem,this.doctorID,this.userInFo.userId ).subscribe(data=>{
+      console.log("response :",data.body);
+      console.log("status code:",data.status);
+      if(data.status == 200 || data.status == 201){
+        alert('Appointment booked successfully');
+        
+        this._router.navigate(['/mybookings',this.userInFo.userId]);
+      } else{
+        alert("Something went wrong");
       }
-      else{
-        alert("User already exist");
-      }
+    }, (error)=>{
+      console.log(error);
+      alert("Something went wrong");
     })
   }
 }

@@ -62,21 +62,23 @@ export class LoginComponent {
 
     // console.log(JSON.stringify(this.form.value, null, 2));
     const { username, password } = this.form.value;
-    this.authservice.login(username, password).subscribe(isAuthnticated =>{
-      if(isAuthnticated) {
-        this.userdata=localStorage.getItem("session");
-         this.userdata=JSON.parse(this.userdata);
-         if(this.userdata.user.role == "patient"){
+    this.authservice.login(username, password).subscribe(data =>{
+     console.log(data);
+     console.log("response :",data.body);
+     console.log("status :",data.status);
+     localStorage.setItem('session',JSON.stringify(data.body));
+         if(data.body.role == "user"){
           this._router.navigate(['/userdashboard']);
-         } else if(this.userdata.user.role == "doctor"){
+         } else if(data.body.role == "doctor"){
           this._router.navigate(['/doctor']);
          }
-         else if(this.userdata.user.role == "admin"){
+         else if(data.body.role == "admin"){
           this._router.navigate(['/admindashboard']);
          }
-        } else {
-        alert('Invalid credentials');
-  }
+        
+    },(error: any) => {
+      console.log(error);
+      alert('Invalid credentials');
     })
   }
 }

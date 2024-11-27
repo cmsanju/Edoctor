@@ -11,21 +11,38 @@ import { FooterComponent } from '../../footer/footer.component';
   styleUrl: './admindashboard.component.css',
 })
 export class AdmindashboardComponent {
+  public userList:any=[];
+  public doctorList:any=[];
   public userdata:any=[];
+  public bookingList:any=[];
   constructor(private activatedRoute: ActivatedRoute,private _router : Router,private authService: AuthService){
     this.userdata=localStorage.getItem("session");
     // console.log(this.userdata);
-    this.userdata=JSON.parse(this.userdata) }
-    update(){
-      this._router.navigate(['/adminupdate']);
+    this.userdata=JSON.parse(this.userdata) 
+    this.authService.getDoctorsList().subscribe(data =>{
+      console.log(data);
+       this.doctorList=data.body;
+    
+    },(error)=>{console.log(error);}) 
+
+    this.authService.getUserList().subscribe(data =>{
+      console.log(data);
+       this.userList=data.body;
+    
+    },(error)=>{console.log(error);})
+    this.authService.getBookingList().subscribe(data =>{
+      console.log(data);
+       this.bookingList=data.body;
+    
+    },(error)=>{console.log(error);})
+  };
+    doctorsList(){
+      this._router.navigate(['/totaldoctors']);
     }
-  navigate(){
-    this._router.navigate(['/appointmentlist']);
-  }
-   logout(){
-    this.authService.logout();
-  }
-  navigateToDoc(){
-    this._router.navigate(['/doc-register'])
+    patientslist(){
+      this._router.navigate(['/patientslist']);
+    }
+    bookingsList(){
+      this._router.navigate(['/totalbookings']);
     }
    }

@@ -1,24 +1,29 @@
 <app-header></app-header>
 <div class="container" style="padding-top: 50px; margin-bottom: 7.8%;">
-   <div class="row">
+   <div class="row justify-content-center">
       <div class="col-md-12">
-        <table class="table table-bordered">
+        <h2 style="text-align: center;"><u>Doctors List</u></h2>
+        <table class="table table-bordered table-striped">
             <thead  class="thead-light">
               <tr style="text-align: center;">
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Specilization</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile</th>
+                <th scope="col" style="width:40%">Specilization</th>
+                <th scope="col">OP Fee</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let doc of doctorList; let i = index">
                 <th scope="row">{{i+1}}</th>
-                <td>{{doc.firstname}} {{doc.lastname}}</td>
-                <td>{{doc.gender}}</td>
-                <td></td>
-                <td><button class="btn btn-success btn-md " style="margin-left:27%">Book Appointment</button></td>
+                <td>{{doc.doctorName}}</td>
+                <td>{{doc.email}}</td>
+                <td>{{doc.mobileNo}}</td>
+                <td>{{doc.speciality}}</td>
+                <td>&#8377; {{doc.chargedPerVisit}}</td>
+                <td><button class="btn btn-success btn-sm " (click)="appointment(doc.doctorId)">Book Appointment</button></td>
               </tr>
             </tbody>
           </table>
@@ -26,3 +31,20 @@
     </div>
 </div>
 <app-footer></app-footer>
+<div class="modal fade" id="imagesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Images</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

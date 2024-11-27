@@ -20,6 +20,7 @@ import { AuthService } from '../../../services/auth.service';
 export class DoctorRegistrationComponent {
   form: FormGroup = new FormGroup({
     fullname: new FormControl(''),
+    username:new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
     specialization:new FormControl(''),
@@ -33,6 +34,7 @@ export class DoctorRegistrationComponent {
     this.form = this.formBuilder.group(
       {
         fullname: ['', Validators.required],
+        username:['',Validators.required],
         email:['',Validators.required],
         password: [
           '',
@@ -60,13 +62,19 @@ export class DoctorRegistrationComponent {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
-    const { fulname,email,password,specialization,experience,place} = this.form.value;
-    this.authservice.docregister(fulname,email,password,specialization,experience,place).subscribe(isAuthnticated=>{
-      if(isAuthnticated) {
+    const { fullname,username,email,password,specialization,experience,place} = this.form.value;
+    this.authservice.docregister(fullname,username,email,password,specialization,experience,place).subscribe(data=>{
+      console.log("response :",data.body);
+      console.log("status code:",data.status);
+      if(data.status == 200 || data.status == 201){
+        alert('Doctor Registration Successfull');
+        this._router.navigate(['/login']);
+      } else{
+        alert("Doctor Already exist ");
       }
-      else{
-        alert("User already exist");
-      }
+    }, (error)=>{
+      console.log(error);
+      alert("Doctor Already exist ");
     })
   }
 }

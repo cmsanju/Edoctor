@@ -2,30 +2,63 @@
 <div class="container" id="slotform">
   <div class="" style="margin-bottom: 25px;"><br>
     <h3 class="text-center"><u>Edit Profile</u></h3>
-    <form>
+    <form [formGroup]="form" (ngsubmit)="onsubmit()">
       <div class="form-group">
         <label>Doctor Id</label>
-        <input type="text" class="form-control" id="doctorId" name="doctorId">
+        <input type="text" class="form-control" id="doctorId" name="doctorId" [ngClass]="{ 'is-invalid': submitted && f['doctorId'].errors }" formControlName="doctorId">
+        @if (submitted && f['doctorId'].errors) {
+          <div class="invalid-feedback">
+            @if (f['doctorId'].errors['required']) {
+            <div>Please enter your doctorId</div>
+            }
+          </div>
+          }
       </div>
       <div class="form-group">
-        <label>Doctor Name</label>
-        <input type="text" class="form-control" id="doctorName" name="doctorName">
+        <label for="doctorname"> Name : <b class="text-danger">*</b></label>
+        <input type="text" class="form-control" placeholder="enter your name" name="doctorname"
+          [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" formControlName="username">
+        @if (submitted && f['username'].errors) {
+        <div class="invalid-feedback">
+          @if (f['username'].errors['required']) {
+          <div>Please enter your username</div>
+          }
+        </div>
+        }
       </div>
       <div class="form-group">
         <label>Speciality</label>
-        <input type="text" class="form-control" id="speciality" name="speciality">
+        <input type="text" class="form-control" id="speciality" name="speciality" [ngClass]="{'is-invalid': submitted && f['speciality'].errors}" formControlName="speciality">
+        @if (submitted && f['speciality'].errors) {
+          <div class="invalid-feedback">
+            @if (f['speciality'].errors['required']) {
+            <div>Please enter your username</div>
+            }
+          </div>
+          }
       </div>
       <div class="form-group">
         <label>Mobile No</label>
-        <input type="text" class="form-control" id="mobileNo" name="mobileNo">
+        <input type="text" class="form-control" id="mobileNo" name="mobileNo" [ngClass]="{'is-invalid': submitted && f['contact'].errors}" formControlName="contact">
+        @if (submitted && f['contact'].errors) {
+          <div class="invalid-feedback">
+            @if (f['contact'].errors['required']) {
+            <div>Please enter your username</div>
+            }
+          </div>
+          }
       </div>
       <div class="form-group">
-        <label>Email</label>
-        <input type="text" class="form-control" id="email" name="email">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" id="password" name="password">
+        <label for="email"> Email : <b class="text-danger">*</b></label>
+        <input type="email" class="form-control" placeholder="enter email address" name="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+        @if (submitted && f['email'].errors) {
+        <div class="invalid-feedback">
+          @if (f['email'].errors['required']) {
+          <div>Please enter email</div>
+          }
+        </div>
+        }
       </div>
       <div class="text-center">
         <button style="margin-top: 25px;" type="submit" class="btn update">&nbsp;

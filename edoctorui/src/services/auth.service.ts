@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {map} from 'rxjs/operators';
@@ -10,50 +10,18 @@ import {map} from 'rxjs/operators';
 })
 export class AuthService {
   constructor(private http: HttpClient,private _router : Router) { }
-  private usersUrl:string ="";
+  private usersUrl:string ='http://localhost:8001/';
   getUsers(): Observable<any> {
     return this.http.get<any>(this.usersUrl);
   }
-  login(username: string, password: string): Observable<boolean> {
-    return this.http.get<any[]>(this.usersUrl).pipe(
-      map(users => {
-        const user = users.find(u => u.username === username && u.password === password);
-        if (user) {
-          localStorage.setItem('session', JSON.stringify({ user }));
-          return true;
-        }
-        return false;
-      })
-    );
+  login(username: string, password: string): Observable<HttpResponse<any>> {
+    var inputpayload={userName:username,password:password};
+    return this.http.post(this.usersUrl+"login",inputpayload,{observe:'response'});
   }
-  userregister(username:string,email:string,password:string,contact:string,role:string,gender:string):Observable<boolean> {
-    return this.http.get<any[]>(this.usersUrl).pipe(
-      map(users => {
-        console.log(username,email,password,contact,role,gender);
-        const user = users.find(u => u.username === username && u.role === role);
-        if (user) {
-          // localStorage.setItem('session', JSON.stringify({ user }));
-          return false;
-        }
-        else{
-          var newuser= [{
-            "id": 1,
-      "firstname":username,
-      "lastname": username,
-      "email": email,
-      "mobile": contact,
-      "password": password,
-      "username": username,
-      "role":"user" ,
-      "gender": gender,
-      "dob": "1989-08-12"
-          }];
-          // this.usersUrl.push(newuser);
-          // console.log(this.usersUrl);
-          return true;
-        }
-      })
-    );
+  userregister(userfullname:string,username:string,email:string,password:string,contact:string,gender:string):Observable<HttpResponse<any>> {
+    var inputpayload={userName:username,role:"user",password:password,email:email,contact:contact,gender:gender,fullName:userfullname,};
+    return this.http.post(this.usersUrl+"registeruser",inputpayload,{observe:'response'});
+    
   }
   logout() {
     const confirmation = window.confirm('Are you sure you want to logout?');
@@ -67,12 +35,39 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('session');
   }
-  getDoctorsList(){
+  getDoctorsList():Observable<HttpResponse<any>>{
+    return this.http.get(this.usersUrl+"doctor",{observe:'response'});
+  }
+  getUserList():Observable<HttpResponse<any>>{
+    return this.http.get(this.usersUrl+"user",{observe:'response'});
+  }
+  getBookingList():Observable<HttpResponse<any>>{
+    return this.http.get(this.usersUrl+"appointment",{observe:'response'});
+  }
+  getDoctorInfo(id:string):Observable<HttpResponse<any>>{
+    return this.http.get(this.usersUrl+"doctor/"+id,{observe:'response'});
+  }
+  doctorslist(){
     var doctorList:any=[];
     return this.http.get<any[]>(this.usersUrl).pipe(
       map(users => {
          users.forEach(user => {
             if(user.role == "doctor"){
+              doctorList.push(user);
+            }
+         });
+        //  console.log(users);
+         return doctorList;
+       
+      })
+    )
+  }
+  patientslist(){
+    var doctorList:any=[];
+    return this.http.get<any[]>(this.usersUrl).pipe(
+      map(users => {
+         users.forEach(user => {
+            if(user.role == "patient"){
               doctorList.push(user);
             }
          });
@@ -96,31 +91,11 @@ export class AuthService {
       })
     )
   }
-  docregister(username:string,email:string,password:string,contact:string,role:string,gender:string):Observable<boolean> {
-    return this.http.get<any[]>(this.usersUrl).pipe(
-      map(users => {
-        console.log(username,email,password,contact,role,gender);
-        const user = users.find(u => u.username === username && u.role === role);
-        if (user) {
-          // localStorage.setItem('session', JSON.stringify({ user }));
-          return false;
-        }
-        else{
-          var newuser= [{
-            "id": 1,
-      "fullname":username,
-      "email": email,
-      "password": password,
-      "role":"doctor" ,
-      "gender": gender,
-      "dob": "1989-08-12"
-          }];
-          // this.usersUrl.push(newuser);
-          // console.log(this.usersUrl);
-          return true;
-        }
-      })
-    );
+  
+  docregister(fulname:string,username:string,email:string,password:string,specialization:string,experience:string,place:string):Observable<HttpResponse<any>> {
+    var inputpayload={doctorName:fulname,speciality:specialization,location:place,hospitalName:'Test Hospital',mobileNo:'999999999',email:email,password:password,chargedPerVisit:'500'};
+    
+    return this.http.post(this.usersUrl+"registerdoctor",inputpayload,{observe:'response'});
   }
   addSlots(username:string,email:string,specialization:string,amslot:string,pmslot:string,patienttype:string,date:string):Observable<boolean> {
     return this.http.get<any[]>(this.usersUrl).pipe(
@@ -150,31 +125,10 @@ export class AuthService {
     );
   }
 
-  bookSlots(username:string,age:string,gender:string,Problem:string,Date:string,Time:string,doctor:string):Observable<boolean> {
-    return this.http.get<any[]>(this.usersUrl).pipe(
-      map(users => {
-        // console.log(username,email,specialization,amslot,pmslot,date,patienttype);
-        const user = users.find(u => u.username === username && u.date === Date);
-        if (user) {
-          // localStorage.setItem('session', JSON.stringify({ user }));
-          return false;
-        }
-        else{
-          var newuser= [{
-            "id": 1,
-            "username": username,
-            "age":age,
-            "gender": gender,
-            "Problem": Problem,
-            "Time": Time,
-            "Doctor":doctor,
-            "date": Date,
-          }];
-          // this.usersUrl.push(newuser);
-          // console.log(this.usersUrl);
-          return true;
-        }
-      })
-    );
+  bookSlots(Date:string,status:string,Problem:string,doctorID:any,userId:string):Observable<HttpResponse<any>> {
+    var inputpayload={patient:userId,doctor:parseInt(doctorID),appointmentDate:Date,appointmentStatus:status,remark:Problem};
+    
+    return this.http.post(this.usersUrl+"newappointment",inputpayload,{observe:'response'});
   }
+  
 }
