@@ -72,7 +72,7 @@ export class PatientupdateComponent {
         },(error)=>{console.log(error);}) 
         alert('User updated Successfull');
         // this._router.navigate(['/userdashboard']);
-        window.location.href= '/userdashboard';
+         window.location.href= '/userdashboard';
       } else{
         alert("Something went wrong");
       }

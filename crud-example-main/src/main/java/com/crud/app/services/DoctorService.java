@@ -1,4 +1,5 @@
 package com.crud.app.services;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import com.crud.app.model.Doctor;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Transactional
 @Service
 public class DoctorService {
 

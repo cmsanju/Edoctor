@@ -117,6 +117,11 @@ export class AuthService {
     
     return this.http.post(this.usersUrl+"registerdoctor",inputpayload,{observe:'response'});
   }
+  docUpdate(fulname:string,username:string,email:string,password:string,specialization:string,experience:string,place:string,doctorId:string):Observable<HttpResponse<any>> {
+    var inputpayload={doctorName:fulname,speciality:specialization,location:place,hospitalName:'Test Hospital',mobileNo:'999999999',email:email,password:password,chargedPerVisit:'500',doctorId:doctorId};
+    
+    return this.http.put(this.usersUrl+"doctor",inputpayload,{observe:'response'});
+  }
   addSlots(username:string,email:string,specialization:string,amslot:string,pmslot:string,patienttype:string,date:string):Observable<boolean> {
     return this.http.get<any[]>(this.usersUrl).pipe(
       map(users => {

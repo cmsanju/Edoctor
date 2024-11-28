@@ -50,21 +50,21 @@ export class ScheduleComponent {
     return this.form.controls;
   }
 
-  addSlot()
-  {
-    this.submitted = true;
+  // addSlot()
+  // {
+  //   this.submitted = true;
 
-    if (this.form.invalid) {
-      return;
-    }
-    console.log(JSON.stringify(this.form.value, null, 2));
-    const { username,email,specialization,amslot,pmslot,date,patienttype } = this.form.value;
-    this.authservice.addSlots( username,email,specialization,amslot,pmslot,date,patienttype ).subscribe(isAuthnticated=>{
-      if(isAuthnticated) {
-      }
-      else{
-        alert("User already exist");
-      }
-    })
-  }
+  //   if (this.form.invalid) {
+  //     return;
+  //   }
+  //   console.log(JSON.stringify(this.form.value, null, 2));
+  //   const { username,email,specialization,amslot,pmslot,date,patienttype } = this.form.value;
+  //   this.authservice.addSlots( username,email,specialization,amslot,pmslot,date,patienttype ).subscribe(isAuthnticated=>{
+  //     if(isAuthnticated) {
+  //     }
+  //     else{
+  //       alert("User already exist");
+  //     }
+  //   })
+  // }
 }

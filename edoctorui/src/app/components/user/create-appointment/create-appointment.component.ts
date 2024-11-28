@@ -12,6 +12,7 @@ import {
 import { HeaderComponent} from '../header/header.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { AuthService } from '../../../../services/auth.service';
+import emailjs from 'emailjs-com';
 @Component({
   selector: 'app-create-appointment',
   standalone: true,
@@ -43,9 +44,10 @@ export class CreateAppointmentComponent {
         this.doctorOnfo=data.body;
       }, (error)=>{
         console.log(error);
-        alert("Doctor Already exist ");
+        alert("Something went wrong");
       })
     }
+  
    }
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -74,6 +76,23 @@ export class CreateAppointmentComponent {
       console.log("response :",data.body);
       console.log("status code:",data.status);
       if(data.status == 200 || data.status == 201){
+        const templateParams = {
+          from_name: 'Edoctor',
+          // from_email: 'ashokreddyudumula85@gmail.com',
+          to_name: this.userInFo.fullName,
+          to_email: this.userInFo.email,
+          subject:'Appointment Booking Conformation - Edoctor',
+          message_html: 'Appointment date : '+Date+'  \n Doctor name : Dr. '+this.doctorOnfo.doctorName+' \n Remark : '+Problem+ '\n OP fee : '+this.doctorOnfo.chargedPerVisit
+          
+      };
+      
+      emailjs.send('service_5vdck6d','template_4lfg5oc', templateParams, 'HmR7mlNG1eosFno4g')
+        .then((response) => {
+           console.log('SUCCESS!', response.status, response.text,response);
+        }, (err) => {
+           console.log('FAILED...', err);
+        });
+       
         alert('Appointment booked successfully');
         
         this._router.navigate(['/mybookings',this.userInFo.userId]);
