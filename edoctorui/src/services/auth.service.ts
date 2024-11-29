@@ -66,6 +66,11 @@ export class AuthService {
   }
   deleteUser(id:string):Observable<HttpResponse<any>>{
     return this.http.delete(this.usersUrl+"user/"+id,{observe:'response'});
+  }deleteAppointment(id:string):Observable<HttpResponse<any>>{
+    return this.http.delete(this.usersUrl+"appointment/"+id,{observe:'response'});
+  }
+  deleteDoctor(id:string):Observable<HttpResponse<any>>{
+    return this.http.delete(this.usersUrl+"doctor/"+id,{observe:'response'});
   }
   doctorslist(){
     var doctorList:any=[];

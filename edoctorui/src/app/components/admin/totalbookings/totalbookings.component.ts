@@ -16,11 +16,8 @@ export class TotalbookingsComponent {
   public userList:any=[];
   public doctorList:any=[];
   constructor(private activatedRoute: ActivatedRoute,private _router : Router,private authService: AuthService) {
-    this.authService.getBookingList().subscribe(data =>{
-      console.log(data);
-       this.bookingsList=data.body;
-    
-    },(error)=>{console.log(error);});
+    this.bookingdata();
+   
     this.authService.getDoctorsList().subscribe(data =>{
       console.log(data);
        this.doctorList=data.body;
@@ -40,6 +37,13 @@ export class TotalbookingsComponent {
     }
     return undefined;
   }
+  bookingdata(){
+    this.authService.getBookingList().subscribe(data =>{
+      console.log(data);
+       this.bookingsList=data.body;
+    
+    },(error)=>{console.log(error);});
+  }
   getDoctor(id: any): string | undefined{
  const user = this.doctorList.find((user: any) => user.doctorId === id);
  if (user) {
@@ -47,5 +51,20 @@ export class TotalbookingsComponent {
  }
  return undefined;
   };
-  
+  deleteAppointment(appointmentID:any){
+    let userConform= confirm("Do you want to delete this appointment?");
+    if(userConform){
+      this.authService.deleteAppointment(appointmentID).subscribe(data =>{
+        console.log(data);
+        this.bookingdata();
+        alert("Appointment deleted successfully");
+      },(error:any)=>{
+        console.log(error);
+        alert("Failed to delete appointment");
+      })
+    }
+    else{
+      console.log("User clicked cancel");
+    };
+  }
 }

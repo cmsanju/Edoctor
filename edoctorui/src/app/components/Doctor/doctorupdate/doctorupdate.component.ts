@@ -71,11 +71,17 @@ onSubmit(){
     console.log("response :",data.body);
     console.log("status code:",data.status);
     if(data.status == 200 || data.status == 201){
-      localStorage.removeItem("session");
-      localStorage.setItem('session',JSON.stringify(data.body));
+       this.authservice.getDoctorInfo(this.userdata.doctorId).subscribe(data =>{
+        console.log(data);
+        localStorage.removeItem("session");
+        localStorage.setItem('session',JSON.stringify(data.body));
+      
+      },(error)=>{console.log(error);})
+
+     
       alert('Profile updated Successfull');
       // this._router.navigate(['/login']);
-      window.location.href= '/doctor';
+     window.location.href= '/doctor';
     } else{
       alert("Something went wrong");
     };

@@ -25,7 +25,7 @@
                  <td>{{doc.remark}}</td>
                  <td>{{doc.appointmentStatus}}</td>
                  <!-- <td>&#8377;{{doc.chargedPerVisit}}</td> -->
-                 <td><button class="btn btn-danger btn-md">Remove</button></td>
+                 <td><button class="btn btn-danger btn-md" (click)="deleteAppointment(doc.appointmentId)">Remove</button></td>
                </tr>
              </tbody>
            </table>

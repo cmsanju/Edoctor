@@ -3,7 +3,7 @@
     <div class="row">
        <div class="col-md-12">
         <h2 style="text-align: center;"><u>Doctors List</u></h2>
-        <button class="btn btn-primary btn-sm" style="margin-bottom: 20px;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add Doctor</button>
+        <!-- <button class="btn btn-primary btn-sm" style="margin-bottom: 20px;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add Doctor</button> -->
         <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -48,7 +48,7 @@
                  <td>{{doc.mobileNo}}</td>
                  <td>{{doc.email}}</td>
                  <td>&#8377;{{doc.chargedPerVisit}}</td>
-                 <td><button class="btn btn-danger btn-md">remove</button></td>
+                 <td><button class="btn btn-danger btn-md" (click)="deleteDoctor(doc.doctorId)">Remove</button></td>
                </tr>
              </tbody>
            </table>
