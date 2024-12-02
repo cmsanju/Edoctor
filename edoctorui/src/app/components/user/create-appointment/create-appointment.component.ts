@@ -13,14 +13,18 @@ import { HeaderComponent} from '../header/header.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { AuthService } from '../../../../services/auth.service';
 import emailjs from 'emailjs-com';
+import { DatePipe} from '@angular/common';
 @Component({
   selector: 'app-create-appointment',
   standalone: true,
   imports: [ReactiveFormsModule,CommonModule,HeaderComponent,FooterComponent],
+  providers: [DatePipe],
   templateUrl: './create-appointment.component.html',
   styleUrl: './create-appointment.component.css'
 })
 export class CreateAppointmentComponent {
+  public currentDate:any = new Date();
+  public todayDate:any ;
   form: FormGroup = new FormGroup({
     
     age: new FormControl(''),
@@ -33,7 +37,8 @@ export class CreateAppointmentComponent {
   doctorID:any;
   doctorOnfo:any=[];
   userInFo:any=[];
-  constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router,private authservice: AuthService) {
+  constructor(private formBuilder: FormBuilder,private activatedRoute: ActivatedRoute,private _router : Router,private authservice: AuthService, private datePipe : DatePipe) {
+    this.todayDate=this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.userInFo=localStorage.getItem('session');
     this.userInFo=JSON.parse(this.userInFo);
     if(this.activatedRoute.snapshot.paramMap.get('id')){

@@ -36,14 +36,17 @@ export class RegisterComponent {
       {
         userfullname:['', Validators.required],
         username: ['', Validators.required],
-        email:['',Validators.required], 
+        email:['',Validators.required,
+                Validators.pattern(/^[a-zA-Z0-9._%+-]@(gmail|yahoo)\.com$/),
+                Validators.email,
+        ], 
         password: [
           '',
           [
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(40),
-            // Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/),
+            Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/),
           ],
         ],
         contact:['',Validators.required],

@@ -84,7 +84,7 @@
                                 }
 
                             <label for="date"><b class="text-danger">*</b>Date :</label>
-                            <input type="date" class="form-control" id="date" name="date"
+                            <input type="date" [min]="todayDate" class="form-control" id="date" name="date"
                                 [ngClass]="{ 'is-invalid': submitted && f['Date'].errors }" formControlName="Date">
                             @if (submitted && f['Date'].errors) {
                             <div class="invalid-feedback">
