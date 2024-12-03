@@ -31,7 +31,7 @@ public class AdminController {
             Admin admin  = adminService.get(id);
             return new ResponseEntity<Admin>(admin, HttpStatus.OK);
 
-        } catch (NoSuchElementException e){
+        } catch (Exception e){
             return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
         }
     }
@@ -46,13 +46,13 @@ public class AdminController {
     @PutMapping("admin")
     public ResponseEntity<?> update(@RequestBody Admin admin) {
         try {
-            Admin existAdmin = adminService.update(admin);
-            adminService.save(admin);
+            adminService.update(admin); // Assuming this method updates the admin details
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
     @DeleteMapping("admin/{id}")
     public void delete(@PathVariable Integer id) {
