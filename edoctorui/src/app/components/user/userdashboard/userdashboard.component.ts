@@ -22,4 +22,7 @@ export class UserdashboardComponent {
   myappointment(userid:any){
     this._router.navigate(['/mybookings',userid]);
   }
+  availdate(){
+    this._router.navigate(['/availdates']);
+  };
 }

@@ -19,6 +19,7 @@ import { MybookingsComponent } from './components/user/mybookings/mybookings.com
 import { TotalbookingsComponent } from './components/admin/totalbookings/totalbookings.component';
 import { DocLoginComponent } from './components/Doctor/doc-login/doc-login.component';
 import { DoctorappointmentsComponent } from './components/Doctor/doctorappointments/doctorappointments.component';
+import { AvaildatesComponent } from './components/user/availdates/availdates.component';
 export const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
@@ -40,5 +41,6 @@ export const routes: Routes = [
   { path: 'totalbookings', component: TotalbookingsComponent },
   { path: 'doctor_login', component: DocLoginComponent },
   { path: 'appointments', component: DoctorappointmentsComponent },
+  { path: 'availdates', component:AvaildatesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
 ];

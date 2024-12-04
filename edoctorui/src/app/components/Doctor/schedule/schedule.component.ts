@@ -11,60 +11,70 @@ import {
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from '../../footer/footer.component';
 import { AuthService } from '../../../../services/auth.service';
+import { ActivatedRoute, Route } from '@angular/router';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-schedule',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HeaderComponent,FooterComponent],
+  providers:[DatePipe],
   templateUrl: './schedule.component.html',
   styleUrl: './schedule.component.css'
 })
 export class ScheduleComponent {
+  public todayDate:any ;
   form: FormGroup = new FormGroup({
-  username: new FormControl(''),
-  email: new FormControl(''),
-  specialization: new FormControl(''),
-  amslot: new FormControl(''),
-  pmslot: new FormControl(''),
-  date: new FormControl(''),
-  patienttype: new FormControl(''),
+    doctorId: new FormControl(''),
+    fromDate: new FormControl(''),
+    endDate: new FormControl(''),
   });
   submitted = false;
-  constructor(private formBuilder: FormBuilder, private authservice: AuthService) {} 
+  userdata:any;
+
+  constructor(private formBuilder: FormBuilder, private authservice: AuthService, private activatedroute: ActivatedRoute,private datePipe : DatePipe) {
+    this.todayDate=this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.userdata=localStorage.getItem("session");
+    // console.log(this.userdata);
+    this.userdata=JSON.parse(this.userdata);
+  } 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        username: ['', Validators.required],
-        email:['',Validators.required],
-        specialization:['',Validators.required],
-        amslot:['',Validators.required],
-        pmslot:['',Validators.required],
-        date:['',Validators.required],
-        patienttype:['',Validators.required],
+        doctorId:[this.userdata.doctorId || '',Validators.required],
+        fromDate:['',Validators.required],
+        endDate:['',Validators.required],
       }
     );
   }
 
   get f(): { [key: string]: AbstractControl } {
-    // console.log(this.form.controls);
-    //localStorage.setItem("Error",this.form.controls);
+    console.log(this.form.controls);
     return this.form.controls;
   }
+  onSubmit(){
+    this.submitted = true;
+    console.log(this.form.invalid);
+    console.log( this.form.value);
+    if (this.form.invalid) {
+      return;
+    }
+   
+    const { fromDate,endDate} = this.form.value;
+    
+    this.authservice.docShedule(this.userdata.doctorId,fromDate,endDate).subscribe(data=>{
+      console.log("response :",data.body);
+      console.log("status code:",data.status);
+      if(data.status == 200 || data.status == 201){
+        alert('Dates updated Successfull');
+        // this.router.navigate(['/login']);
+       window.location.href= '/doctor';
+      } else{
+        alert("Something went wrong");
+      };
+    }, (error:any)=>{
+      console.log(error);
+      alert("Something went wrong");
+    })
+  }
+  };
 
-  // addSlot()
-  // {
-  //   this.submitted = true;
-
-  //   if (this.form.invalid) {
-  //     return;
-  //   }
-  //   console.log(JSON.stringify(this.form.value, null, 2));
-  //   const { username,email,specialization,amslot,pmslot,date,patienttype } = this.form.value;
-  //   this.authservice.addSlots( username,email,specialization,amslot,pmslot,date,patienttype ).subscribe(isAuthnticated=>{
-  //     if(isAuthnticated) {
-  //     }
-  //     else{
-  //       alert("User already exist");
-  //     }
-  //   })
-  // }
-}

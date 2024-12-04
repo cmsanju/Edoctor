@@ -52,18 +52,21 @@ export class AuthService {
   getDoctorsList():Observable<HttpResponse<any>>{
     return this.http.get(this.usersUrl+"doctor",{observe:'response'});
   }
+  getAvailDatesList():Observable<HttpResponse<any>>{
+    return this.http.get(this.usersUrl+"availdates",{observe:'response'});
+  }
   getUserList():Observable<HttpResponse<any>>{
     return this.http.get(this.usersUrl+"user",{observe:'response'});
   }
   getBookingList():Observable<HttpResponse<any>>{
     return this.http.get(this.usersUrl+"appointment",{observe:'response'});
-  }
+  };
   getDoctorInfo(id:string):Observable<HttpResponse<any>>{
     return this.http.get(this.usersUrl+"doctor/"+id,{observe:'response'});
-  }
+  };
   getUserdata(id:string):Observable<HttpResponse<any>>{
     return this.http.get(this.usersUrl+"user/"+id,{observe:'response'});
-  }
+  };
   deleteUser(id:string):Observable<HttpResponse<any>>{
     return this.http.delete(this.usersUrl+"user/"+id,{observe:'response'});
   }deleteAppointment(id:string):Observable<HttpResponse<any>>{
@@ -127,34 +130,12 @@ export class AuthService {
     
     return this.http.put(this.usersUrl+"doctor",inputpayload,{observe:'response'});
   }
-  addSlots(username:string,email:string,specialization:string,amslot:string,pmslot:string,patienttype:string,date:string):Observable<boolean> {
-    return this.http.get<any[]>(this.usersUrl).pipe(
-      map(users => {
-        // console.log(username,email,specialization,amslot,pmslot,date,patienttype);
-        const user = users.find(u => u.username === username && u.date === date);
-        if (user) {
-          // localStorage.setItem('session', JSON.stringify({ user }));
-          return false;
-        }
-        else{
-          var newuser= [{
-            "id": 1,
-            "username": username,
-            "email":email,
-            "specialization":specialization,
-            "amslot":amslot,
-            "pmslot": pmslot,
-            "date": date,
-            "patienttype": patienttype,
-          }];
-          // this.usersUrl.push(newuser);
-          // console.log(this.usersUrl);
-          return true;
-        }
-      })
-    );
+  docShedule(doctorId:string,fromDate:string,endDate:string):Observable<HttpResponse<any>> {
+    var inputpayload={"doctor": {
+        "doctorId":doctorId},fromDate:fromDate,endDate:endDate};
+    
+    return this.http.put(this.usersUrl+"availdates",inputpayload,{observe:'response'});
   }
-
   bookSlots(Date:string,status:string,Problem:string,doctorID:any,userId:string):Observable<HttpResponse<any>> {
     var inputpayload={patient:userId,doctor:parseInt(doctorID),appointmentDate:Date,appointmentStatus:status,remark:Problem};
     

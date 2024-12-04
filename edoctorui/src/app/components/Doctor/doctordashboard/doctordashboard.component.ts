@@ -36,4 +36,5 @@ export class DoctordashboardComponent {
     doctorupdate(){
       this._router.navigate(['/doctorupdate']);
     };
+    
 }

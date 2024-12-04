@@ -29,6 +29,25 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
 	}
 	
+	@ExceptionHandler(NoElementException.class)
+	public ResponseEntity<ErrorMessage> noElementException(NoElementException exp, WebRequest request)
+	{
+		ErrorMessage message = new ErrorMessage();
+		
+		message.setDate(new Date());
+		
+		String url = request.getDescription(false);
+		
+		message.setUrl(url);
+		
+		message.setMessage(exp.getMessage());
+		
+		message.setStatusCode(HttpStatus.NO_CONTENT.value());
+		
+		return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+	}
+
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorMessage> allExceptions(Exception exp, WebRequest request)
 	{

@@ -2,28 +2,26 @@
 <div class="container" style="padding-top: 50px; margin-bottom: 7.8%;">
    <div class="row justify-content-center">
       <div class="col-md-12">
-        <h2 style="text-align: center;"><u>Doctors List</u></h2>
+        <h2 style="text-align: center;"><u>Doctors available dates</u></h2>
         <table class="table table-bordered table-striped">
             <thead  class="thead-light">
               <tr style="text-align: center;">
-                <th scope="col">ID</th>
+                <th scope="col">S.no</th>
                 <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Mobile</th>
                 <th scope="col" style="width:40%">Specilization</th>
+                <th scope="col">From Date</th>
+                <th scope="col">To Date</th>
                 <th scope="col">OP Fee</th>
-                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let doc of doctorList; let i = index">
                 <th scope="row">{{i+1}}</th>
-                <td>{{doc.doctorName}}</td>
-                <td>{{doc.email}}</td>
-                <td>{{doc.mobileNo}}</td>
-                <td>{{doc.speciality}}</td>
-                <td>&#8377; {{doc.chargedPerVisit}}</td>
-                <td><button class="btn btn-success btn-sm " (click)="appointment(doc.doctorId)">Book Appointment</button></td>
+                <td>Dr. {{doc.doctor.doctorName}}</td>
+                <td>{{doc.doctor.speciality}}</td>
+                <td>{{doc.fromDate}}</td>
+                <td>{{doc.endDate}}</td>
+                <td>&#8377; {{doc.doctor.chargedPerVisit}}</td>
               </tr>
             </tbody>
           </table>
